@@ -1,8 +1,8 @@
-# Web Development Project 2 - *Name of App Here*
+# Web Development Project 2 - *FlashCards!*
 
-Submitted by: **Your Name Here**
+Submitted by: **Daniel Boyce**
 
-This web app: **insert description**
+This web app: **Custom Flash cards**
 
 Time spent: **X** hours spent in total
 
