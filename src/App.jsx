@@ -5,12 +5,15 @@ import './App.css'
 import Card from './components/Card'
 import NextButton from './components/NextButton';
 import { cards } from './Cards'
+import { shuffle } from './Shuffle';
+
 
 function App() {
-  const [isFront, setIsFront] = useState(true);
+  const [isFront,setIsFront] = useState(true);
   const [index,setIndex] = useState(0);
   const [answer,setAnswer] = useState("");
   const [streak,setStreak] = useState(0);
+  const [flashCards,setFlashCards] = useState(cards)
 
   const handleCardClick = ()=> {
     setIsFront(!isFront);
@@ -23,7 +26,7 @@ function App() {
 
   const handleButttonClickBack = () => {
     setIsFront(true)
-    if (index ==0) {
+    if (index == 0) {
       return;
     }
 
@@ -41,6 +44,9 @@ function App() {
       setStreak(0);
         alert("you are wrong")
     }
+  }
+  const handleShuffle = () => {
+      setFlashCards(shuffle(cards))
   }
   
   return (
@@ -72,6 +78,7 @@ function App() {
         <div className='buttonContainer'>
               <NextButton onClick={handleButttonClickBack} arrow = {<ArrowBackIcon/>}/>
               <NextButton onClick={handleButtonClickForward} arrow = {<ArrowForwardIcon/>}/>
+              <NextButton onClick={handleShuffle} arrow={'shuffle'}/>
         </div>
 
       </div>
