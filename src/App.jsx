@@ -3,40 +3,69 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './App.css'
 import Card from './components/Card'
-import NextButton from './components/NextButton'
+import NextButton from './components/NextButton';
 import { cards } from './Cards'
 
-function getRandomIntInclusive(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
-}
 function App() {
   const [isFront, setIsFront] = useState(true);
-  const [index,setIndex] = useState(0)
+  const [index,setIndex] = useState(0);
+  const [answer,setAnswer] = useState("");
+  const [streak,setStreak] = useState(0);
+
   const handleCardClick = ()=> {
     setIsFront(!isFront);
   }
-  const handleButtonClick = () => {
-    setIsFront(true); // Reset the card to front when moving to the next
-    setIndex(getRandomIntInclusive(0,9));
+
+  const handleButtonClickForward = () => {
+    setIsFront(true);
+    setIndex((index + 1) % cards.length); 
+  }
+
+  const handleButttonClickBack = () => {
+    setIsFront(true)
+    setIndex((index - 1) % cards.length); 
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (answer.toLocaleLowerCase  == cards[index][1].content.toLocaleLowerCase) {
+      setStreak(streak+1);
+      alert("You are correct");
+    } else {
+      setStreak(0);
+        alert("you are wrong")
+    }
   }
   
   return (
     <div>
-      
       <h1>The ultimate Anime Fan! </h1>
       <h2>Test your Anime knowledge</h2>
       <h3>Number of cards:{cards.length}</h3>
+      <p>Your current Streak is:{streak}</p>
       <div className='container'>
         <div onClick={handleCardClick} className='CardContainer'>
             { isFront?
-              (<Card content={cards[index][0].content}/>) :
+              (<Card content={cards[index][0].content}/>):
               (<Card content={cards[index][1].content}/>)
             }
         </div>
+
+        <div>
+          <form action="">
+            <input
+            value={answer}
+            type="text"
+            name="Enter your answer"
+            onChange={e => setAnswer(e.target.value)}
+            />
+            <button onClick={handleSubmit} type='submit'>Submit</button>
+          </form>
+        </div>
+
         <div className='buttonContainer'>
-              <NextButton onClick={handleButtonClick} arrow = {<ArrowForwardIcon/>}/>
+              <NextButton onClick={handleButttonClickBack} arrow = {<ArrowBackIcon/>}/>
+              <NextButton onClick={handleButtonClickForward} arrow = {<ArrowForwardIcon/>}/>
         </div>
 
       </div>
