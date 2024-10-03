@@ -23,12 +23,18 @@ function App() {
 
   const handleButttonClickBack = () => {
     setIsFront(true)
+    if (index ==0) {
+      return;
+    }
+
     setIndex((index - 1) % cards.length); 
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (answer.toLocaleLowerCase  == cards[index][1].content.toLocaleLowerCase) {
+    const isAnsCorrect = answer.toLowerCase  == cards[index][1].content.toLowerCase
+    const isClose = answer.toLowerCase in cards[index][1].content.toLowerCase 
+    if (isAnsCorrect || isClose) {
       setStreak(streak+1);
       alert("You are correct");
     } else {
@@ -70,7 +76,7 @@ function App() {
 
       </div>
     </div>
-  )
+  ) 
 }
 
 export default App
