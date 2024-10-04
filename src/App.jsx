@@ -29,15 +29,15 @@ function App() {
     if (index == 0) {
       return;
     }
-
     setIndex((index - 1) % cards.length); 
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isAnsCorrect = answer.toLowerCase  == cards[index][1].content.toLowerCase
-    const isClose = answer.toLowerCase in cards[index][1].content.toLowerCase 
-    if (isAnsCorrect || isClose) {
+    // const isAnsCorrect = 
+    const isClose =  cards[index][1].content.toLowerCase().includes(answer.toLowerCase())
+    const isCorrect = answer.toLowerCase()  == cards[index][1].content.toLowerCase()
+    if ( isCorrect || isClose) {
       setStreak(streak+1);
       alert("You are correct");
     } else {
